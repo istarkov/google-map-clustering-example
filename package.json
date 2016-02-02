@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "kotatsu serve --port 4000 --config ./config/loaders.js --presets es2015,stage-0,react,react-hmre ./src/Main.js",
+    "build": "NODE_ENV=production kotatsu build client --minify --config ./config/loaders.js --presets es2015,stage-0,react ./src/Main.js -o build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ivan Starkov",
