@@ -10,7 +10,7 @@ export class Layout extends Component {
     return (
       <div className={layout}>
         <header className={header}>
-          <div>Clustering example google-map-react</div>
+          <div>Clustering example google-map-react (zoom, move to play with)</div>
           <div><a href="github.com">github.com</a></div>
         </header>
         <main className={main}>

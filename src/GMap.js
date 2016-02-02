@@ -6,6 +6,7 @@ import withAttachedProps from 'recompose/withAttachedProps';
 import mapPropsOnChange from 'recompose/mapPropsOnChange';
 import GoogleMapReact from 'google-map-react';
 import ClusterMarker from './markers/ClusterMarker';
+import SimpleMarker from './markers/SimpleMarker';
 import supercluster from 'points-cluster';
 import { susolvkaCoords, markersData } from './data/fakeData';
 
@@ -32,14 +33,13 @@ export const gMap = ({
           lat: wy,
           lng: wx,
           text: numPoints,
+          numPoints,
           id: `${numPoints}_${points[0].id}`,
         }))
-        .map(({ ...markerProps, id }) => (
-          <ClusterMarker
-            key={id}
-            hovered={id === hoveredMarkerId}
-            {...markerProps}
-          />
+        .map(({ ...markerProps, id, numPoints }) => (
+          numPoints === 1
+            ? <SimpleMarker key={id} hovered={id === hoveredMarkerId} {...markerProps} />
+            : <ClusterMarker key={id} hovered={id === hoveredMarkerId} {...markerProps} />
         ))
     }
   </GoogleMapReact>
@@ -47,7 +47,7 @@ export const gMap = ({
 
 export const gMapHOC = compose(
   defaultProps({
-    clusterRadius: 50,
+    clusterRadius: 60,
     hoverDistance: 30,
     options: {
       minZoom: 6,

@@ -31,6 +31,10 @@ module.exports = {
           path.join(__dirname, '../node_modules'),
         ],
       },
+      {
+        test: /\.svg$/,
+        loaders: ['url-loader?limit=7000'],
+      },
     ],
   },
 };
