@@ -29,13 +29,6 @@ export const gMap = ({
   >
     {
       clusters
-        .map(({ wx, wy, numPoints, points }) => ({
-          lat: wy,
-          lng: wx,
-          text: numPoints,
-          numPoints,
-          id: `${numPoints}_${points[0].id}`,
-        }))
         .map(({ ...markerProps, id, numPoints }) => (
           numPoints === 1
             ? <SimpleMarker key={id} hovered={id === hoveredMarkerId} {...markerProps} />
@@ -120,6 +113,13 @@ export const gMapHOC = compose(
       ...props,
       clusters: mapProps.bounds
         ? getCluster(mapProps)
+          .map(({ wx, wy, numPoints, points }) => ({
+            lat: wy,
+            lng: wx,
+            text: numPoints,
+            numPoints,
+            id: `${numPoints}_${points[0].id}`,
+          }))
         : [],
     })
   )
