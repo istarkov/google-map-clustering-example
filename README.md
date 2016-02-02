@@ -5,7 +5,7 @@ Clustering example for [google-map-react](https://github.com/istarkov/google-map
 
 [Click here to view](http://istarkov.github.io/google-map-clustering-example/)
 
-### Kotatsu
+### [Kotatsu](https://github.com/Yomguithereal/kotatsu)
 
 I was heavily inspired of [kotatsu](https://github.com/Yomguithereal/kotatsu) project. 
 
@@ -24,3 +24,17 @@ To build
 npm install
 npm run build
 ```
+
+### [MapBox](https://github.com/mapbox) and [Mourner](https://github.com/mourner)
+
+Any map-geo library you want, always can be found there.
+
+This project also uses [MapBox library written by Mourner](https://github.com/mapbox/supercluster)
+
+
+### [Recompose by @acdlite](https://github.com/acdlite/recompose)
+
+My lovest library, [recompose](https://github.com/acdlite/recompose) is heavily used in this project.
+
+
+
