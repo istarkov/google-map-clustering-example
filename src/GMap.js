@@ -43,7 +43,7 @@ export const gMapHOC = compose(
     clusterRadius: 60,
     hoverDistance: 30,
     options: {
-      minZoom: 6,
+      minZoom: 3,
       maxZoom: 15,
     },
     style: {
