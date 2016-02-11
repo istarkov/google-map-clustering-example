@@ -107,8 +107,8 @@ export const gMapHOC = compose(
   ),
   // get clusters specific for current bounds and zoom
   mapPropsOnChange(
-    ['mapProps', 'getCluster', 'hoveredMarkerId'],
-    ({ ...props, mapProps, getCluster, hoveredMarkerId }) => ({
+    ['mapProps', 'getCluster'],
+    ({ ...props, mapProps, getCluster }) => ({
       ...props,
       clusters: mapProps.bounds
         ? getCluster(mapProps)
@@ -119,13 +119,21 @@ export const gMapHOC = compose(
             numPoints,
             id: `${numPoints}_${points[0].id}`,
           }))
-          .map(({ ...cluster, id }) => ({
-            ...cluster,
-            hovered: id === hoveredMarkerId,
-          }))
         : [],
     })
-  )
+  ),
+  // set hovered
+  mapPropsOnChange(
+    ['clusters', 'hoveredMarkerId'],
+    ({ ...props, clusters, hoveredMarkerId }) => ({
+      ...props,
+      clusters: clusters
+        .map(({ ...cluster, id }) => ({
+          ...cluster,
+          hovered: id === hoveredMarkerId,
+        })),
+    })
+  ),
 );
 
 export default gMapHOC(gMap);
