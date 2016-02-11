@@ -16,6 +16,7 @@ To run this project locally (with hot reload and other fine kotatsu things)
 ```bash
 npm install
 npm run start
+# open your browser at localhost:4000
 ```
 
 To build
