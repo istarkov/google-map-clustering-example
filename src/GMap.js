@@ -13,7 +13,6 @@ import { susolvkaCoords, markersData } from './data/fakeData';
 export const gMap = ({
   style, hoverDistance, options,
   mapProps: { center, zoom },
-  hoveredMarkerId,
   onChange, onChildMouseEnter, onChildMouseLeave,
   clusters,
 }) => (
@@ -31,8 +30,8 @@ export const gMap = ({
       clusters
         .map(({ ...markerProps, id, numPoints }) => (
           numPoints === 1
-            ? <SimpleMarker key={id} hovered={id === hoveredMarkerId} {...markerProps} />
-            : <ClusterMarker key={id} hovered={id === hoveredMarkerId} {...markerProps} />
+            ? <SimpleMarker key={id} {...markerProps} />
+            : <ClusterMarker key={id} {...markerProps} />
         ))
     }
   </GoogleMapReact>
@@ -108,8 +107,8 @@ export const gMapHOC = compose(
   ),
   // get clusters specific for current bounds and zoom
   mapPropsOnChange(
-    ['mapProps', 'getCluster'],
-    ({ ...props, mapProps, getCluster }) => ({
+    ['mapProps', 'getCluster', 'hoveredMarkerId'],
+    ({ ...props, mapProps, getCluster, hoveredMarkerId }) => ({
       ...props,
       clusters: mapProps.bounds
         ? getCluster(mapProps)
@@ -119,6 +118,10 @@ export const gMapHOC = compose(
             text: numPoints,
             numPoints,
             id: `${numPoints}_${points[0].id}`,
+          }))
+          .map(({ ...cluster, id }) => ({
+            ...cluster,
+            hovered: id === hoveredMarkerId,
           }))
         : [],
     })

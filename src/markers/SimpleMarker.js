@@ -31,7 +31,7 @@ export const simpleMarker = ({
 export const simpleMarkerHOC = compose(
   defaultProps({
     styles: simpleMarkerStyles,
-    initialScale: 0.1,
+    initialScale: 0.3,
     defaultScale: 0.6,
     hoveredScale: 0.7,
   }),
