@@ -50,9 +50,9 @@ export const clusterMarkerHOC = compose(
   pure,
   mapPropsOnChange(
     ['initialScale'],
-    ({ initialScale }) => ({
+    ({ initialScale, defaultScale, $prerender }) => ({
       initialScale,
-      defaultMotionStyle: { scale: initialScale },
+      defaultMotionStyle: { scale: $prerender ? defaultScale : initialScale },
     })
   ),
   mapPropsOnChange(
