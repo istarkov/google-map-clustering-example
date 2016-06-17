@@ -32,11 +32,11 @@
     "url-loader": "^0.5.7"
   },
   "dependencies": {
-    "google-map-react": "^0.11.2",
+    "google-map-react": "^0.14.5",
     "points-cluster": "^0.1.4",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-motion": "^0.4.2",
-    "recompose": "^0.14.5"
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-motion": "^0.4.4",
+    "recompose": "^0.20.0"
   }
 }

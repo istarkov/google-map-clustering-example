@@ -2,8 +2,8 @@ import React from 'react';
 import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
 import withState from 'recompose/withState';
-import withAttachedProps from 'recompose/withAttachedProps';
-import mapPropsOnChange from 'recompose/mapPropsOnChange';
+import withHandlers from 'recompose/withHandlers';
+import withPropsOnChange from 'recompose/withPropsOnChange';
 import GoogleMapReact from 'google-map-react';
 import ClusterMarker from './markers/ClusterMarker';
 import SimpleMarker from './markers/SimpleMarker';
@@ -72,29 +72,23 @@ export const gMapHOC = compose(
     }
   ),
   // describe events
-  withAttachedProps(
-    (getProps) => ({
-      onChange({ center, zoom, bounds }) {
-        const { setMapProps } = getProps();
-        setMapProps({ center, zoom, bounds });
-      },
+  withHandlers({
+    onChange: ({ setMapProps }) => ({ center, zoom, bounds }) => {
+      setMapProps({ center, zoom, bounds });
+    },
 
-      onChildMouseEnter(hoverKey, { id }) {
-        const { setHoveredMarkerId } = getProps();
-        setHoveredMarkerId(id);
-      },
+    onChildMouseEnter: ({ setHoveredMarkerId }) => (hoverKey, { id }) => {
+      setHoveredMarkerId(id);
+    },
 
-      onChildMouseLeave(/* hoverKey, childProps */) {
-        const { setHoveredMarkerId } = getProps();
-        setHoveredMarkerId(-1);
-      },
-    })
-  ),
+    onChildMouseLeave: ({ setHoveredMarkerId }) => (/* hoverKey, childProps */) => {
+      setHoveredMarkerId(-1);
+    },
+  }),
   // precalculate clusters if markers data has changed
-  mapPropsOnChange(
+  withPropsOnChange(
     ['markers'],
-    ({ ...props, markers = [], clusterRadius, options: { minZoom, maxZoom } }) => ({
-      ...props,
+    ({ markers = [], clusterRadius, options: { minZoom, maxZoom } }) => ({
       getCluster: supercluster(
         markers,
         {
@@ -106,10 +100,9 @@ export const gMapHOC = compose(
     })
   ),
   // get clusters specific for current bounds and zoom
-  mapPropsOnChange(
+  withPropsOnChange(
     ['mapProps', 'getCluster'],
-    ({ ...props, mapProps, getCluster }) => ({
-      ...props,
+    ({ mapProps, getCluster }) => ({
       clusters: mapProps.bounds
         ? getCluster(mapProps)
           .map(({ wx, wy, numPoints, points }) => ({
@@ -123,10 +116,9 @@ export const gMapHOC = compose(
     })
   ),
   // set hovered
-  mapPropsOnChange(
+  withPropsOnChange(
     ['clusters', 'hoveredMarkerId'],
-    ({ ...props, clusters, hoveredMarkerId }) => ({
-      ...props,
+    ({ clusters, hoveredMarkerId }) => ({
       clusters: clusters
         .map(({ ...cluster, id }) => ({
           ...cluster,
