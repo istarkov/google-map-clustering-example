@@ -1,7 +1,7 @@
 import React from 'react';
 import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
-import mapPropsOnChange from 'recompose/mapPropsOnChange';
+import withPropsOnChange from 'recompose/withPropsOnChange';
 import pure from 'recompose/pure';
 import { Motion, spring } from 'react-motion';
 import clusterMarkerStyles from './ClusterMarker.sass';
@@ -48,14 +48,14 @@ export const clusterMarkerHOC = compose(
   // pure optimization can cause some effects you don't want,
   // don't use it in development for markers
   pure,
-  mapPropsOnChange(
+  withPropsOnChange(
     ['initialScale'],
     ({ initialScale, defaultScale, $prerender }) => ({
       initialScale,
       defaultMotionStyle: { scale: $prerender ? defaultScale : initialScale },
     })
   ),
-  mapPropsOnChange(
+  withPropsOnChange(
     ['hovered'],
     ({
       hovered, hoveredScale, defaultScale,
